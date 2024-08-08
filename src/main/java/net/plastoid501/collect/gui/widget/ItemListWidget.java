@@ -28,7 +28,8 @@ public class ItemListWidget extends ElementListWidget<ItemListWidget.Entry> {
     private final MinecraftClient client;
 
     public ItemListWidget(ItemListScreen parent, MinecraftClient client, String listName) {
-        super(client, parent.width + 45, parent.height, 48, parent.height - 32, 23);
+        //super(client, parent.width + 45, parent.height, 48, parent.height - 32, 23);
+        super(client, parent.width + 45, parent.height - 80, 48, 23);
         this.parent = parent;
         this.client = client;
         this.initEntries(client, listName);
@@ -64,13 +65,13 @@ public class ItemListWidget extends ElementListWidget<ItemListWidget.Entry> {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         if (this.client == null || this.client.player == null || this.client.world == null) {
             this.setRenderBackground(true);
         } else {
             this.setRenderBackground(false);
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.renderWidget(context, mouseX, mouseY, delta);
     }
 
     public class CategoryEntry extends Entry {
