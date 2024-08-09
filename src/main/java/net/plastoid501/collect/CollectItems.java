@@ -22,7 +22,6 @@ public class CollectItems implements ModInitializer {
 		// Proceed with mild caution.
 
 		FileUtil.generateClientModFolder();
-		NbtUtil.updateNbt();
 		JsonUtil.generateClientModConfig();
 		JsonUtil.updateConfigs();
 	}
