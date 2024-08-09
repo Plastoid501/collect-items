@@ -15,7 +15,6 @@ public class ListScreen extends Screen {
     public static TextFieldWidget searchBox;
     private final String listName;
 
-
     public ListScreen(Screen parent, String listName) {
         super(Text.literal("-- List --"));
         this.parent = parent;
@@ -44,7 +43,6 @@ public class ListScreen extends Screen {
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
             this.update();
             this.close();
-            //this.client.setScreen(new ConfigScreen(parent));
         }).dimensions(this.width / 2 - 155 + 160, this.height - 27, 150, 20).build());
         this.setInitialFocus(this.searchBox);
     }
@@ -56,8 +54,6 @@ public class ListScreen extends Screen {
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 8, 0xFFFFFF);
         super.render(context, mouseX, mouseY, delta);
     }
-
-
 
     @Override
     public boolean shouldPause() {
@@ -71,16 +67,7 @@ public class ListScreen extends Screen {
         }
     }
 
-    /*
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture(context);
-    }
-
-     */
-
     public static void update() {
-        //JsonUtil.updateListConfig(listConfig.getLeft(), listConfig.getRight().getLists());
         JsonUtil.updateConfigs();
     }
 }
