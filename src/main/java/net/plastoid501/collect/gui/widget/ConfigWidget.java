@@ -159,7 +159,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
             this.resetButton = ButtonWidget.builder(Text.literal("RESET"), button -> {
                 this.enable = this.defaultConfig.isEnable();
                 this.keys = this.defaultConfig.getKeys();
-                this.selected = 0;
+                this.selected = this.list.indexOf(Configs.collectItems.getSelected());
                 JsonUtil.updateThrowItemConfig(key, new JCollectItemConfig(this.enable, this.keys, this.list.get(this.selected)));
                 this.update();
             }).size(40, 20).build();
