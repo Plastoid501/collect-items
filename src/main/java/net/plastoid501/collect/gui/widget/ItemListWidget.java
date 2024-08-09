@@ -104,7 +104,7 @@ public class ItemListWidget extends ElementListWidget<ItemListWidget.Entry> {
 
     }
 
-    public static class ItemEntry extends Entry {
+    public class ItemEntry extends Entry {
         private final Item item;
         private final TextWidget itemText;
         private final TextRenderer textRenderer;

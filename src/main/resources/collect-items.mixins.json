@@ -9,6 +9,7 @@
   },
   "client": [
     "IHandledScreenMixin",
+    "IScreenMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "MouseMixin"
