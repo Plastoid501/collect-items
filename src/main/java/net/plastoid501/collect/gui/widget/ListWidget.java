@@ -56,7 +56,7 @@ public class ListWidget extends ElementListWidget<ListWidget.Entry> {
         return super.getRowWidth() + 250;
     }
 
-    public static class CategoryEntry extends Entry {
+    public class CategoryEntry extends Entry {
         private final TextWidget categoryText;
         CategoryEntry(Text CategoryName, TextRenderer textRenderer) {
             this.categoryText = new TextWidget(CategoryName, textRenderer);
