@@ -70,7 +70,7 @@ public class ListWidget extends ElementListWidget<ListWidget.Entry> {
         super.render(context, mouseX, mouseY, delta);
     }
 
-    public static class CategoryEntry extends Entry {
+    public class CategoryEntry extends Entry {
         private final TextWidget categoryText;
         CategoryEntry(Text CategoryName, TextRenderer textRenderer) {
             this.categoryText = new TextWidget(CategoryName, textRenderer);

@@ -15,7 +15,6 @@ public class ItemListScreen extends Screen {
     public static TextFieldWidget searchBox;
     public final String listName;
 
-
     public ItemListScreen(Screen parent, String listName) {
         super(Text.literal("Item List"));
         this.parent = parent;
@@ -51,8 +50,6 @@ public class ItemListScreen extends Screen {
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 8, 0xFFFFFF);
     }
 
-
-
     @Override
     public boolean shouldPause() {
         return false;
@@ -65,16 +62,7 @@ public class ItemListScreen extends Screen {
         }
     }
 
-    /*
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture(context);
-    }
-
-     */
-
     public static void update() {
-        //JsonUtil.updateListConfig(listConfig.getLeft(), listConfig.getRight().getLists());
         JsonUtil.updateConfigs();
     }
 }
