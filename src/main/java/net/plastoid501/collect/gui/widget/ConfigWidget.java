@@ -51,11 +51,10 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
     private void initEntries(MinecraftClient client) {
         if (CONFIG != null) {
-            this.addEntry(new CategoryEntry(Text.of("-- Throw Item --"), client.textRenderer));
-            Configs.getToggleHotkeys().keySet().forEach((key) -> this.addEntry(new ThrowItemEntry(key, this.client.textRenderer, CONFIG)));
+            this.addEntry(new CategoryEntry(Text.of("-- Collect Item --"), client.textRenderer));
+            Configs.getToggleHotkeys().keySet().forEach((key) -> this.addEntry(new CollectItemEntry(key, this.client.textRenderer, CONFIG)));
             this.addEntry(new CategoryEntry(Text.of(""), client.textRenderer));
             this.addEntry(new CategoryEntry(Text.of("-- List --"), client.textRenderer));
-            //Configs.getToggleHotkeys().keySet().forEach((key) -> this.addEntry(new ThrowItemEntry(key, this.client.textRenderer, CONFIG)));
             Configs.collectItems.getStacks().keySet().forEach((key) -> this.addEntry(new ListEntry(key, this.client.textRenderer, CONFIG, this.client, this.parent)));
             this.addEntry(new AddListEntry(this.client.textRenderer));
             this.addEntry(new CategoryEntry(Text.of(""), client.textRenderer));
@@ -107,7 +106,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
     }
 
-    public class ThrowItemEntry extends Entry {
+    public class CollectItemEntry extends Entry {
         private final CollectItemConfig defaultConfig;
         private boolean enable;
         private List<String> keys;
@@ -119,7 +118,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         private final ButtonWidget editButton;
         private final ButtonWidget resetButton;
 
-        ThrowItemEntry(String key, TextRenderer textRenderer, ModConfig config) {
+        CollectItemEntry(String key, TextRenderer textRenderer, ModConfig config) {
             this.defaultConfig = Configs.getToggleHotkeys().get(key);
             this.enable = Configs.collectItems.isEnable();
             this.keys = Configs.collectItems.getKeys();
