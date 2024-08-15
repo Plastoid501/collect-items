@@ -111,7 +111,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(ConfigWidget.this.client.currentScreen.width / 2 - this.textWidth / 2, y + 5);
+            this.text.setPos(ConfigWidget.this.client.currentScreen.width / 2 - this.textWidth / 2, y + 5);
             this.text.render(matrices, mouseX, mouseY, tickDelta);
         }
 
@@ -202,15 +202,15 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(x - 122, y + 5);
+            this.text.setPos(x - 122, y + 5);
             this.text.render(matrices, mouseX, mouseY, tickDelta);
-            this.enableButton.setPosition(x + 27, y);
+            this.enableButton.setPos(x + 27, y);
             this.enableButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.toggleButton.setPosition(x + 90, y);
+            this.toggleButton.setPos(x + 90, y);
             this.toggleButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.editButton.setPosition(x + 153, y);
+            this.editButton.setPos(x + 153, y);
             this.editButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.resetButton.setPosition(x + 316, y);
+            this.resetButton.setPos(x + 316, y);
             this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
@@ -306,11 +306,11 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(x - 122, y + 5);
+            this.text.setPos(x - 122, y + 5);
             this.text.render(matrices, mouseX, mouseY, tickDelta);
-            this.editButton.setPosition(x + 153, y);
+            this.editButton.setPos(x + 153, y);
             this.editButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.resetButton.setPosition(x + 316, y);
+            this.resetButton.setPos(x + 316, y);
             this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
@@ -374,11 +374,11 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.listText.setPosition(x - 122, y + 5);
+            this.listText.setPos(x - 122, y + 5);
             this.listText.render(matrices, mouseX, mouseY, tickDelta);
-            this.detailButton.setPosition(x + 230, y);
+            this.detailButton.setPos(x + 230, y);
             this.detailButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.removeButton.setPosition(x + 293, y);
+            this.removeButton.setPos(x + 293, y);
             this.removeButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
@@ -418,9 +418,9 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.listText.setPosition(x + 130, y + 2);
+            this.listText.setPos(x + 130, y + 2);
             this.listText.render(matrices, mouseX, mouseY, tickDelta);
-            this.addButton.setPosition(x + 293, y);
+            this.addButton.setPos(x + 293, y);
             this.addButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 

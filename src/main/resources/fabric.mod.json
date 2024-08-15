@@ -22,11 +22,12 @@
 			"net.plastoid501.collect.gui.ModMenuIntegration"
 		]
 	},
+	"accessWidener": "collect-items.accesswidener",
 	"mixins": [
 		"collect-items.mixins.json"
 	],
 	"depends": {
-		"minecraft": "=1.19.4"
+		"minecraft": "=1.19.3"
 	},
 	"suggests": {
 		"another-mod": "*"

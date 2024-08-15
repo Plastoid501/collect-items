@@ -91,7 +91,7 @@ public class ListWidget extends ElementListWidget<ListWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.categoryText.setPosition(x + 170, y + 5);
+            this.categoryText.setPos(x + 170, y + 5);
             this.categoryText.render(matrices, mouseX, mouseY, tickDelta);
         }
 
@@ -147,16 +147,16 @@ public class ListWidget extends ElementListWidget<ListWidget.Entry> {
 
         @Override
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            ListWidget.this.itemRenderer.renderInGui(matrices, this.stack, x + 18, y + 2);
+            ListWidget.this.itemRenderer.renderInGui(this.stack, x + 18, y + 2);
             if (x + 18 <= mouseX && mouseX <= x + 18 + 16 && y + 2 <= mouseY && mouseY <= y + 2 + 16) {
                 ListWidget.this.parent.renderTooltip(matrices, ListWidget.this.parent.getTooltipFromItem(this.stack), mouseX, mouseY);
                 //context.drawItemTooltip(this.textRenderer, this.stack, mouseX, mouseY);
             }
-            this.itemText.setPosition(x + 38, y + 5);
+            this.itemText.setPos(x + 38, y + 5);
             this.itemText.render(matrices, mouseX, mouseY, tickDelta);
-            this.addButton.setPosition(x + 332, y);
+            this.addButton.setPos(x + 332, y);
             this.addButton.render(matrices, mouseX, mouseY, tickDelta);
-            this.removeButton.setPosition(x + 385, y);
+            this.removeButton.setPos(x + 385, y);
             this.removeButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
