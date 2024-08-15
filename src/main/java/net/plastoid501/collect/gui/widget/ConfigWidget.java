@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
@@ -14,6 +13,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.plastoid501.collect.config.Configs;
@@ -82,13 +82,13 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         if (this.client == null || this.client.player == null || this.client.world == null) {
             this.setRenderBackground(true);
         } else {
             this.setRenderBackground(false);
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public class CategoryEntry extends Entry {
@@ -110,9 +110,9 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             this.text.setPosition(ConfigWidget.this.client.currentScreen.width / 2 - this.textWidth / 2, y + 5);
-            this.text.render(context, mouseX, mouseY, tickDelta);
+            this.text.render(matrices, mouseX, mouseY, tickDelta);
         }
 
         @Override
@@ -201,17 +201,17 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             this.text.setPosition(x - 122, y + 5);
-            this.text.render(context, mouseX, mouseY, tickDelta);
+            this.text.render(matrices, mouseX, mouseY, tickDelta);
             this.enableButton.setPosition(x + 27, y);
-            this.enableButton.render(context, mouseX, mouseY, tickDelta);
+            this.enableButton.render(matrices, mouseX, mouseY, tickDelta);
             this.toggleButton.setPosition(x + 90, y);
-            this.toggleButton.render(context, mouseX, mouseY, tickDelta);
+            this.toggleButton.render(matrices, mouseX, mouseY, tickDelta);
             this.editButton.setPosition(x + 153, y);
-            this.editButton.render(context, mouseX, mouseY, tickDelta);
+            this.editButton.render(matrices, mouseX, mouseY, tickDelta);
             this.resetButton.setPosition(x + 316, y);
-            this.resetButton.render(context, mouseX, mouseY, tickDelta);
+            this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
         @Override
@@ -305,13 +305,13 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             this.text.setPosition(x - 122, y + 5);
-            this.text.render(context, mouseX, mouseY, tickDelta);
+            this.text.render(matrices, mouseX, mouseY, tickDelta);
             this.editButton.setPosition(x + 153, y);
-            this.editButton.render(context, mouseX, mouseY, tickDelta);
+            this.editButton.render(matrices, mouseX, mouseY, tickDelta);
             this.resetButton.setPosition(x + 316, y);
-            this.resetButton.render(context, mouseX, mouseY, tickDelta);
+            this.resetButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
         @Override
@@ -373,13 +373,13 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             this.listText.setPosition(x - 122, y + 5);
-            this.listText.render(context, mouseX, mouseY, tickDelta);
+            this.listText.render(matrices, mouseX, mouseY, tickDelta);
             this.detailButton.setPosition(x + 230, y);
-            this.detailButton.render(context, mouseX, mouseY, tickDelta);
+            this.detailButton.render(matrices, mouseX, mouseY, tickDelta);
             this.removeButton.setPosition(x + 293, y);
-            this.removeButton.render(context, mouseX, mouseY, tickDelta);
+            this.removeButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
         @Override
@@ -417,11 +417,11 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             this.listText.setPosition(x + 130, y + 2);
-            this.listText.render(context, mouseX, mouseY, tickDelta);
+            this.listText.render(matrices, mouseX, mouseY, tickDelta);
             this.addButton.setPosition(x + 293, y);
-            this.addButton.render(context, mouseX, mouseY, tickDelta);
+            this.addButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 
         @Override
