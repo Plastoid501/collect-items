@@ -30,10 +30,8 @@ import net.plastoid501.collect.util.NbtUtil;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
@@ -95,8 +93,8 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(ConfigWidget.this.client.currentScreen.width / 2 - this.textWidth / 2, y + 5);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.text.setPosition(ConfigWidget.this.client.currentScreen.width / 2 - this.textWidth / 2, getY() + 5);
             this.text.render(context, mouseX, mouseY, tickDelta);
         }
 
@@ -138,7 +136,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
             }).size(60, 20).build();
             this.editButton = ButtonWidget.builder(this.getKeyBindText(this.keys), button -> {
                 ConfigWidget.this.parent.keyBinding = key;
-                ConfigWidget.this.parent.keys = new ArrayList<>();
+                ConfigWidget.this.parent.keys = new HashSet<>();
                 this.update();
             }).size(160, 20).build();
             this.resetButton = ButtonWidget.builder(Text.literal("RESET"), button -> {
@@ -186,16 +184,16 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(x - 122, y + 5);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.text.setPosition(getX() - 122, getY() + 5);
             this.text.render(context, mouseX, mouseY, tickDelta);
-            this.enableButton.setPosition(x + 27, y);
+            this.enableButton.setPosition(getX() + 27, getY());
             this.enableButton.render(context, mouseX, mouseY, tickDelta);
-            this.toggleButton.setPosition(x + 90, y);
+            this.toggleButton.setPosition(getX() + 90, getY());
             this.toggleButton.render(context, mouseX, mouseY, tickDelta);
-            this.editButton.setPosition(x + 153, y);
+            this.editButton.setPosition(getX() + 153, getY());
             this.editButton.render(context, mouseX, mouseY, tickDelta);
-            this.resetButton.setPosition(x + 316, y);
+            this.resetButton.setPosition(getX() + 316, getY());
             this.resetButton.render(context, mouseX, mouseY, tickDelta);
         }
 
@@ -205,8 +203,8 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
             this.toggleButton.setMessage(Text.literal(this.list.get(this.selected)));
             if (this.text.getMessage().getString().equals(ConfigWidget.this.parent.keyBinding)) {
                 this.keys = null;
-                List<Integer> keyCodes = ConfigWidget.this.parent.keys;
-                if (!keyCodes.isEmpty() && this.isEnd(keyCodes.get(keyCodes.size() - 1))) {
+                Set<Integer> keyCodes = ConfigWidget.this.parent.keys;
+                if (!keyCodes.isEmpty() && this.isEnd(ConfigWidget.this.parent.lastKey)) {
                     keyCodes.remove(keyCodes.size() - 1);
                     this.keys = KeyCodeUtil.getKeyForCode(keyCodes);
                     JsonUtil.updateThrowItemConfig(this.text.getMessage().getString(), new JCollectItemConfig(this.enable, this.keys, this.list.get(this.selected)));
@@ -243,7 +241,7 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
             this.text.setTooltip(Tooltip.of(Text.of(Configs.getHotkeys().get(key).getNarrator())));
             this.editButton = ButtonWidget.builder(this.getKeyBindText(this.keys), button -> {
                 ConfigWidget.this.parent.keyBinding = key;
-                ConfigWidget.this.parent.keys = new ArrayList<>();
+                ConfigWidget.this.parent.keys = new HashSet<>();
                 this.update();
             }).size(160, 20).build();
             this.resetButton = ButtonWidget.builder(Text.literal("RESET"), button -> {
@@ -290,12 +288,12 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.text.setPosition(x - 122, y + 5);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.text.setPosition(getX() - 122, getY() + 5);
             this.text.render(context, mouseX, mouseY, tickDelta);
-            this.editButton.setPosition(x + 153, y);
+            this.editButton.setPosition(getX() + 153, getY());
             this.editButton.render(context, mouseX, mouseY, tickDelta);
-            this.resetButton.setPosition(x + 316, y);
+            this.resetButton.setPosition(getX() + 316, getY());
             this.resetButton.render(context, mouseX, mouseY, tickDelta);
         }
 
@@ -303,8 +301,8 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         protected void update() {
             if (this.text.getMessage().getString().equals(ConfigWidget.this.parent.keyBinding)) {
                 this.keys = null;
-                List<Integer> keyCodes = ConfigWidget.this.parent.keys;
-                if (!keyCodes.isEmpty() && this.isEnd(keyCodes.get(keyCodes.size() - 1))) {
+                Set<Integer> keyCodes = ConfigWidget.this.parent.keys;
+                if (!keyCodes.isEmpty() && this.isEnd(ConfigWidget.this.parent.lastKey)) {
                     keyCodes.remove(keyCodes.size() - 1);
                     this.keys = KeyCodeUtil.getKeyForCode(keyCodes);
                     JsonUtil.updateHotkeyConfig(this.text.getMessage().getString(), this.keys);
@@ -368,12 +366,12 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.listText.setPosition(x - 122, y + 5);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.listText.setPosition(getX() - 122, getY() + 5);
             this.listText.render(context, mouseX, mouseY, tickDelta);
-            this.detailButton.setPosition(x + 230, y);
+            this.detailButton.setPosition(getX() + 230, getY());
             this.detailButton.render(context, mouseX, mouseY, tickDelta);
-            this.removeButton.setPosition(x + 293, y);
+            this.removeButton.setPosition(getX() + 293, getY());
             this.removeButton.render(context, mouseX, mouseY, tickDelta);
         }
 
@@ -418,10 +416,10 @@ public class ConfigWidget extends ElementListWidget<ConfigWidget.Entry> {
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            this.listText.setPosition(x + 130, y + 1);
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            this.listText.setPosition(getX() + 130, getY() + 1);
             this.listText.render(context, mouseX, mouseY, tickDelta);
-            this.addButton.setPosition(x + 293, y);
+            this.addButton.setPosition(getX() + 293, getY());
             this.addButton.render(context, mouseX, mouseY, tickDelta);
         }
 

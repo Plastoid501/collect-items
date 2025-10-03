@@ -1,7 +1,6 @@
 package net.plastoid501.collect.mixin;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.world.ClientWorld;
 import net.plastoid501.collect.event.KeyBindHandler;
 import net.plastoid501.collect.util.ClientUtil;
@@ -25,7 +24,7 @@ public class MinecraftClientMixin {
     }
 
     @Inject(method = "joinWorld", at = @At(value = "RETURN"))
-    private void postJoinWorld(ClientWorld world, DownloadingTerrainScreen.WorldEntryReason worldEntryReason, CallbackInfo ci) {
+    private void postJoinWorld(ClientWorld world, CallbackInfo ci) {
         if (world == null) {
             return;
         }
