@@ -1,15 +1,16 @@
 package net.plastoid501.collect.util;
 
+import com.mojang.serialization.DynamicOps;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtIo;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.util.ErrorReporter;
 import net.plastoid501.collect.CollectItems;
 import net.plastoid501.collect.config.Configs;
+import net.plastoid501.collect.mixin.INbtReadView;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -49,6 +50,11 @@ public class NbtUtil {
         if (nbt.contains(Configs.collectItems.getSelected())) {
             Optional<NbtList> list = nbt.getList(Configs.collectItems.getSelected());
             List<ItemStack> list2 = toList(list.orElse(new NbtList()), false, registries);
+            for (ItemStack stack2 : list2) {
+                if (stack2.isOf(stack.getItem())) {
+                    return;
+                }
+            }
             list2.add(stack);
             sortList(list2);
             nbt.put(Configs.collectItems.getSelected(), toNbtList(list2, registries));
@@ -107,7 +113,9 @@ public class NbtUtil {
             if (element == null) {
                 continue;
             }
-            items.add(ItemStack.fromNbt(registries, element).orElse(ItemStack.EMPTY));
+
+            DynamicOps<NbtElement> ops = NbtOps.INSTANCE;
+            items.add(ops.getMap(element).flatMap(map -> ItemStack.MAP_CODEC.decode(ops, map)).getOrThrow());
         }
 
         return sort ? sortList(items) : items;
@@ -143,7 +151,8 @@ public class NbtUtil {
     }
 
     private static NbtCompound putItemStack(ItemStack stack, DynamicRegistryManager registries) {
-        return (NbtCompound) stack.toNbt(registries);
+        NbtReadView nbtReadView = (NbtReadView) NbtReadView.create(ErrorReporter.EMPTY, registries, (NbtCompound) ItemStack.CODEC.encodeStart(registries.getOps(NbtOps.INSTANCE), stack).getOrThrow());
+        return ((INbtReadView) nbtReadView).getNbt();
     }
 
     public static NbtCompound readItemListNbt(){
